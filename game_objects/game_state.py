@@ -34,7 +34,7 @@ class GameState:
         if self.bird.height < 0:
             return False
         for pipe in self.pipes:
-            if pipe.x == self.bird.x:
+            if round(pipe.x) == round(self.bird.x):
                 if self.bird.height > pipe.top_height or self.bird.height < pipe.bottom_height:
                     return False
         return True
