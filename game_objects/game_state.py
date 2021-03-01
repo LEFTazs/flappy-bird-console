@@ -11,7 +11,7 @@ class GameState:
 
     def apply_inputs(self, inputs: Inputs):
         if inputs.should_jump:
-            self.bird.speed = 0.25
+            self.bird.speed = self.bird.jumpspeed
 
     def move_one_tick(self, tick: int, width: int, height: int) -> bool:
         self.__tick_pipes(tick, width, height)
@@ -28,7 +28,7 @@ class GameState:
 
     def __tick_bird(self):
         self.bird.height += self.bird.speed
-        self.bird.speed -= 0.01
+        self.bird.speed -= self.bird.accel
 
     def __check_endgame_conditions(self):
         if self.bird.height < 0:

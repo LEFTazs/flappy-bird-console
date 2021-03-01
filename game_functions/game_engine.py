@@ -19,8 +19,8 @@ class GameEngine:
 
         self.game_state.apply_inputs(inputs)
         result: bool = self.game_state.move_one_tick(self.tick,
-                                               self.console_out.console_width,
-                                               self.console_out.console_height)
+                                                     self.console_out.console_width,
+                                                     self.console_out.console_height)
 
         frame: str = self.animator.get_frame_for_game_state(self.game_state,
                                                             self.console_out.console_width,
