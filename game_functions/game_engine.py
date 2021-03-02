@@ -1,7 +1,6 @@
 from animation.animator import Animator
 from game_objects.game_state import GameState
 from input_output.console_in import ConsoleIn
-
 from input_output.console_out import ConsoleOut
 from input_output.inputs import Inputs
 

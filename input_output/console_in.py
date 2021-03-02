@@ -14,14 +14,17 @@ class ConsoleIn:
 
     def read_inputs(self) -> Inputs:
         should_jump: bool = False
+        start_game: bool = False
 
         for input in self.input_cache:
             if input == keyboard.Key.space:
                 should_jump = True
+            if input == keyboard.Key.enter:
+                start_game = True
 
         self.input_cache.clear()
 
-        return Inputs(should_jump)
+        return Inputs(should_jump, start_game)
 
     def on_keyboard_press(self, key):
         self.input_cache.append(key)

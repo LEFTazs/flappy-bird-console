@@ -2,7 +2,7 @@ import os
 import sys
 import time
 
-from input_output.console_constants import CLS, SLEEP_TIME, CURSOR_OFF
+from input_output.console_constants import CLS, CURSOR_OFF, SLEEP_TIME
 
 
 class ConsoleOut:

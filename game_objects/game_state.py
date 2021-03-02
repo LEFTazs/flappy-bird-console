@@ -1,6 +1,7 @@
 from game_functions.pipe_generator import PipeGenerator
-from game_objects.bird import Bird
 from input_output.inputs import Inputs
+
+from game_objects.bird import Bird
 
 
 class GameState:
@@ -8,15 +9,22 @@ class GameState:
         self.bird = Bird(int(height/2))
         self.pipes = []
         self.generate_pipes_every_x_ticks = 25
+        self.menu_displayed = True
 
     def apply_inputs(self, inputs: Inputs):
-        if inputs.should_jump:
-            self.bird.speed = self.bird.jumpspeed
+        if self.menu_displayed:
+            if inputs.start_game:
+                self.menu_displayed = False
+        else:
+            if inputs.should_jump:
+                self.bird.speed = self.bird.jumpspeed
 
     def move_one_tick(self, tick: int, width: int, height: int) -> bool:
-        self.__tick_pipes(tick, width, height)
-        self.__tick_bird()
-        return self.__check_endgame_conditions()
+        if not self.menu_displayed:
+            self.__tick_pipes(tick, width, height)
+            self.__tick_bird()
+            return self.__check_endgame_conditions()
+        return True
 
     def __tick_pipes(self, tick: int, width: int, height: int):
         for pipe in self.pipes:
