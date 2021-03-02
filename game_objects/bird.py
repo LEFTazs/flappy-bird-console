@@ -1,7 +1,7 @@
 class Bird:
     def __init__(self, height: int):
-        self.x = 1
+        self.x = 2
         self.height = height
         self.speed = 0
-        self.accel = 1
-        self.jumpspeed = 0.5
+        self.accel = 0.03
+        self.jumpspeed = 0.7
