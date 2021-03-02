@@ -4,4 +4,4 @@
 | _| | |/ _` || .__/| .__/ \_. |      |  _ \| || '_|/ _` |
 |_|  |_|\__/_||_|   |_|    |__/       |____/|_||_|  \__/_|
                                                           
-                  Press ENTER to start                    
+             Press ENTER to start or Q to quit            

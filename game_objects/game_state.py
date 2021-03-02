@@ -10,11 +10,14 @@ class GameState:
         self.pipes = []
         self.generate_pipes_every_x_ticks = 25
         self.menu_displayed = True
+        self.should_quit = False
 
     def apply_inputs(self, inputs: Inputs):
         if self.menu_displayed:
             if inputs.start_game:
                 self.menu_displayed = False
+            if inputs.should_quit:
+                self.should_quit = True
         else:
             if inputs.should_jump:
                 self.bird.speed = self.bird.jumpspeed
@@ -24,7 +27,7 @@ class GameState:
             self.__tick_pipes(tick, width, height)
             self.__tick_bird()
             return self.__check_endgame_conditions()
-        return True
+        return not self.should_quit
 
     def __tick_pipes(self, tick: int, width: int, height: int):
         for pipe in self.pipes:
