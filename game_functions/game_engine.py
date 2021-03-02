@@ -13,13 +13,14 @@ class GameEngine:
         self.animator = Animator()
         self.tick = 0
 
-    def tick_game(self):
+    def tick_game(self, elapsed_time: float):
         inputs: Inputs = self.console_in.read_inputs()
 
         self.game_state.apply_inputs(inputs)
         result: bool = self.game_state.move_one_tick(self.tick,
                                                      self.console_out.console_width,
-                                                     self.console_out.console_height)
+                                                     self.console_out.console_height,
+                                                     elapsed_time)
 
         frame: str = self.animator.get_frame_for_game_state(self.game_state,
                                                             self.console_out.console_width,

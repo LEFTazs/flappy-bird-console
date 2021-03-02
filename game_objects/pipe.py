@@ -3,3 +3,4 @@ class Pipe:
         self.x = x
         self.top_height = top_height
         self.bottom_height = bottom_height
+        self.speed = 20

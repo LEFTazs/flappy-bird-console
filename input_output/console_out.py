@@ -15,7 +15,7 @@ class ConsoleOut:
         sys.stdout.write(string_to_write)
         sys.stdout.flush()
 
-        time.sleep(SLEEP_TIME)
+        # time.sleep(SLEEP_TIME)
 
         if os.name == 'posix':
             os.system(CURSOR_OFF)
