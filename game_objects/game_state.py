@@ -19,7 +19,10 @@ class GameState:
         if self.menu_displayed:
             if inputs.start_game:
                 self.menu_displayed = False
+                self.game_over = False
                 self.score = 0
+                self.bird.reset()
+                self.pipes = []
             if inputs.should_quit:
                 self.should_quit = True
         else:
