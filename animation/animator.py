@@ -9,39 +9,43 @@ class Animator:
         self.bird = "o"
         self.pipe = "H"
 
-    def get_menu_frame(self, width: int, height: int) -> str:
-        logo: AsciiArt = AsciiArt("logo.txt")
-        drawn_rows = 0
-        frame: str = "#" * width
-        drawn_rows += 1
-        upper_rows = int(height / 2 - logo.height / 2)
-        for y in range(upper_rows):
-            frame += "#" + " " * (width - 2) + "#"
-        drawn_rows += upper_rows
-        for line in logo.lines:
-            temp = "#" + " " * (int(width / 2 - logo.width / 2) - 1) + line + " " * (int(width / 2 - logo.width / 2) - 1)
-            if len(temp) < width:
-                temp += " " * (width - len(temp) - 1) + "#"
-            frame += temp
-        drawn_rows += logo.height
-        while drawn_rows + 1 < height:
-            frame += "#" + " " * (width - 2) + "#"
-            drawn_rows += 1
-        frame += "#" * width
-        drawn_rows += 1
-        assert drawn_rows == height
-        assert len(frame) == width * height
-        return frame
-
     def get_frame_for_game_state(self, game_state: GameState, width: int, height: int) -> str:
-        if game_state.menu_displayed:
-            return self.get_menu_frame(width, height)
+        if game_state.menu_displayed and game_state.game_over:
+            menu_text = "Score: " + str(game_state.score) + " | Highscore: " + str(game_state.highscore) + " | Press ENTER to restart or Q to quit"
+            return self.__get_menu_frame(width, height, "gameover.txt", menu_text)
+        elif game_state.menu_displayed:
+            return self.__get_menu_frame(width, height, "logo.txt")
         else:
             frame: str = ""
             for y in reversed(range(height)):
                 for x in range(width):
                     frame += self.__get_character_for_position(x, y, game_state)
             return frame
+
+    def __get_menu_frame(self, width: int, height: int, ascii_art_file: str, menu_text: str = None) -> str:
+        ascii_art: AsciiArt = AsciiArt(ascii_art_file)
+        frame: str = "#" * width
+        upper_rows = int(height / 2 - ascii_art.height / 2)
+        for y in range(upper_rows):
+            frame += self.__get_fixed_width_string("", width)
+        for line in ascii_art.lines:
+            frame += self.__get_fixed_width_string(line, width)
+        if menu_text is not None:
+            frame += self.__get_fixed_width_string("", width)
+            frame += self.__get_fixed_width_string(menu_text, width)
+        while int(len(frame) / width) + 1 < height:
+            frame += self.__get_fixed_width_string("", width)
+        frame += "#" * width
+        return frame
+
+    def __get_fixed_width_string(self, string: str, width: int) -> str:
+        temp = "#"
+        spacing = " " * (int((width - 2) / 2) - int(len(string) / 2))
+        temp += spacing + string
+        while len(temp) + 1 < width:
+            temp += " "
+        temp += "#"
+        return temp
 
     def __get_character_for_position(self, x: int, y: int, game_state: GameState):
         if game_state.bird.x == x and round(game_state.bird.height) == y:
